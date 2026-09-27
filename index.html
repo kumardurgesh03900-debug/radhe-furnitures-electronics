@@ -3,413 +3,508 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radhe Furnitures & Electronics - Raya, Mathura</title>
+    <title>Radhe Furnitures & Electronics</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         body {
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: #eaeded;
+            color: #0f1111;
+            padding-bottom: 70px;
         }
-        /* Header Styling */
+        /* Top Header like Amazon */
         header {
-            background: linear-gradient(135deg, #004aad, #0077b6);
+            background: #131921;
             color: white;
-            padding: 20px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            padding: 10px 15px;
             position: sticky;
             top: 0;
             z-index: 1000;
         }
-        .logo-section h1 {
-            font-size: 24px;
-            font-weight: 700;
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
         }
-        .logo-section p {
-            font-size: 13px;
-            color: #e0f2fe;
-            margin-top: 2px;
-        }
-        .cart-btn {
-            background-color: #ff9f00;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            font-size: 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
+        .logo-container {
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: background 0.3s;
         }
-        .cart-btn:hover {
-            background-color: #fb8c00;
+        .logo-img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            border-radius: 4px;
+            background: #000;
         }
-        
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-        .banner {
-            background: #e0f2fe;
-            border-left: 5px solid #004aad;
-            padding: 15px 20px;
-            border-radius: 6px;
-            margin-bottom: 30px;
+        .logo-text {
             font-size: 16px;
-            color: #0369a1;
+            font-weight: bold;
+            color: #ff9900;
+            letter-spacing: 0.5px;
         }
-        .section-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #004aad;
-            font-weight: 700;
-            border-bottom: 2px solid #004aad;
-            padding-bottom: 8px;
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+        .search-box {
+            width: 100%;
+            padding: 9px 14px;
+            font-size: 14px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            background: #fff;
+            color: #111;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* Products Grid */
-        .products-grid {
+        /* Category Horizontal Scroll Icons */
+        .category-bar {
+            background: #fff;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 12px 15px;
+            white-space: nowrap;
+            scrollbar-width: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 10px;
+        }
+        .category-bar::-webkit-scrollbar {
+            display: none;
+        }
+        .cat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            color: #333;
+        }
+        .cat-icon-box {
+            width: 50px;
+            height: 50px;
+            background: #f1f3f3;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            margin-bottom: 5px;
+            border: 1px solid #d5d9d9;
+        }
+        .cat-item.active .cat-icon-box {
+            background: #e7f4f5;
+            border-color: #007185;
+            color: #007185;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        /* Banner Section */
+        .promo-banner {
+            background: linear-gradient(135deg, #232f3e, #37475a);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .promo-banner h2 {
+            font-size: 18px;
+            color: #ff9900;
+            margin-bottom: 5px;
+        }
+        .promo-banner p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px 5px 10px 5px;
+            color: #0f1111;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Product Grid (App Style) */
+        .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        @media(min-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
         .product-card {
             background: white;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            text-align: center;
+            border-radius: 8px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: relative;
         }
-        .product-card:hover {
-            transform: translateY(-5px);
+        .product-img-container {
+            width: 100%;
+            height: 140px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 8px;
+            background: #f7f7f7;
+            border-radius: 6px;
+            overflow: hidden;
         }
         .product-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            background-color: #f1f5f9;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
-        .product-name {
-            font-size: 18px;
-            font-weight: 600;
+        .discount-badge {
+            background: #cc0c39;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+        .product-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #0f1111;
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .product-specs {
+            font-size: 11px;
+            color: #565959;
+            margin-bottom: 6px;
+        }
+        .price-box {
             margin-bottom: 8px;
-            color: #1e293b;
         }
-        .product-price {
-            color: #b12704;
-            font-size: 19px;
-            font-weight: 700;
-            margin-bottom: 15px;
+        .current-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0f1111;
         }
-        .btn-group {
-            display: flex;
-            gap: 10px;
+        .mrp-price {
+            font-size: 12px;
+            color: #565959;
+            text-decoration: line-through;
+            margin-left: 5px;
         }
-        .btn {
-            flex: 1;
-            padding: 10px 0;
-            border: none;
-            border-radius: 6px;
+        .add-btn {
+            background-color: #ffd814;
+            color: #0f1111;
+            border: 1px solid #fcd200;
+            padding: 8px;
+            width: 100%;
+            border-radius: 20px;
+            font-size: 13px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             transition: background 0.2s;
         }
-        .add-cart {
-            background-color: #fef3c7;
-            color: #b45309;
-            border: 1px solid #fde68a;
-        }
-        .add-cart:hover {
-            background-color: #fde68a;
-        }
-        .buy-now {
-            background-color: #ff9f00;
-            color: white;
-        }
-        .buy-now:hover {
-            background-color: #f58e00;
+        .add-btn:hover {
+            background-color: #f7ca00;
         }
 
-        /* Cart Modal Styles */
+        /* Floating Cart Button */
+        .cart-floating-btn {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background-color: #ffa41c;
+            color: #0f1111;
+            padding: 12px 22px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+            border: 1px solid #ff8f00;
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.6);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
             justify-content: center;
             align-items: center;
             z-index: 2000;
+            padding: 15px;
         }
         .modal-content {
             background: white;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 12px;
-            padding: 25px;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 10px;
+            padding: 20px;
             max-height: 85vh;
             overflow-y: auto;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
             margin-bottom: 15px;
         }
-        .modal-header h3 {
-            color: #004aad;
-        }
         .close-btn {
-            background: none;
-            border: none;
             font-size: 24px;
             cursor: pointer;
-            color: #64748b;
-        }
-        .cart-items-list {
-            margin-bottom: 20px;
+            color: #666;
         }
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 15px;
-        }
-        .cart-total {
-            font-size: 19px;
-            font-weight: bold;
-            text-align: right;
-            margin-bottom: 20px;
-            color: #1e293b;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #f1f1f1;
+            padding-bottom: 8px;
         }
         .checkout-btn {
-            width: 100%;
             background-color: #25d366;
             color: white;
-            padding: 12px;
             border: none;
-            border-radius: 6px;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: background 0.3s;
-        }
-        .checkout-btn:hover {
-            background-color: #20ba5a;
-        }
-        
-        /* Footer */
-        footer {
+            margin-top: 15px;
             text-align: center;
-            padding: 20px;
-            background: #1e293b;
-            color: #94a3b8;
-            margin-top: 50px;
-            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- App Header with Logo -->
     <header>
-        <div class="logo-section">
-            <h1>Radhe Furnitures & Electronics</h1>
-            <p>Best Quality Furniture & Home Appliances | Raya, Mathura</p>
+        <div class="header-top">
+            <div class="logo-container">
+                <img src="1000127928.jpg" alt="Logo" class="logo-img">
+                <span class="logo-text">Radhe Store</span>
+            </div>
+            <div style="font-size: 12px; color: #ccc;">📍 Delivery: Free Home</div>
         </div>
-        <button class="cart-btn" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</button>
+        <div class="search-container">
+            <input type="text" id="searchBar" class="search-box" placeholder="🔍 Search AC, Fridge, Cooler, Bed..." onkeyup="filterProducts()">
+        </div>
     </header>
 
-    <!-- Main Container -->
-    <div class="container">
-        <div class="banner">
-            📢 <b>Welcome!</b> Browse our latest collection of furniture and electronics. Click "Buy Now" or order directly via WhatsApp!
+    <!-- Horizontal Category Icons Bar -->
+    <div class="category-bar">
+        <div class="cat-item active" onclick="filterCategory('All', this)">
+            <div class="cat-icon-box">🏠</div>
+            <span>All Items</span>
         </div>
-
-        <h2 class="section-title">Featured Products</h2>
-        <div class="products-grid" id="product-list">
-            <!-- Products will load dynamically -->
+        <div class="cat-item" onclick="filterCategory('AC', this)">
+            <div class="cat-icon-box">❄️</div>
+            <span>AC</span>
+        </div>
+        <div class="cat-item" onclick="filterCategory('Cooler', this)">
+            <div class="cat-icon-box">🌀</div>
+            <span>Cooler</span>
+        </div>
+        <div class="cat-item" onclick="filterCategory('Electronics', this)">
+            <div class="cat-icon-box">📺</div>
+            <span>Electronics</span>
+        </div>
+        <div class="cat-item" onclick="filterCategory('Furniture', this)">
+            <div class="cat-icon-box">🛋️</div>
+            <span>Furniture</span>
+        </div>
+        <div class="cat-item" onclick="filterCategory('Bedding', this)">
+            <div class="cat-icon-box">🛏️</div>
+            <span>Gadde</span>
         </div>
     </div>
 
-    <!-- Cart Modal / Order Summary -->
+    <div class="container">
+        <!-- Banner -->
+        <div class="promo-banner">
+            <h2>🎉 Mega Festive & Summer Sale</h2>
+            <p>Get up to 40% OFF on Electronics & Furniture. Order Direct on WhatsApp!</p>
+        </div>
+
+        <div class="section-title">
+            <span>Shop popular deals</span>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-grid" id="productGrid">
+            <!-- Dynamic Products -->
+        </div>
+    </div>
+
+    <!-- Floating Cart Button -->
+    <div class="cart-floating-btn" onclick="toggleCart()">
+        🛒 Cart (<span id="cartCount">0</span>)
+    </div>
+
+    <!-- Cart Modal -->
     <div class="modal" id="cartModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Your Shopping Cart</h3>
-                <button class="close-btn" onclick="toggleCart()">&times;</button>
+                <span class="close-btn" onclick="toggleCart()">&times;</span>
             </div>
-            <div class="cart-items-list" id="cartItemsList">
-                <p style="text-align: center; color: #64748b;">Your cart is empty.</p>
+            <div id="cartItemsList">
+                <p>Cart is empty</p>
             </div>
-            <div class="cart-total" id="cartTotal">Total: ₹0</div>
-            <button class="checkout-btn" onclick="checkoutOnWhatsApp()">
-                <span>Order via WhatsApp 💬</span>
-            </button>
+            <h3 style="margin-top: 15px;">Total: ₹<span id="cartTotal">0</span></h3>
+            <button class="checkout-btn" onclick="checkoutWhatsApp()">Proceed to WhatsApp 📲</button>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Radhe Furnitures & Electronics, Raya, Mathura. All Rights Reserved.</p>
-    </footer>
-
     <script>
-        // Yahan aap apne products ki photo ka link (URL), naam aur price change kar sakte hain
+        const whatsappNumber = "919058095616";
+
         const products = [
-            { 
-                id: 1, 
-                name: "Modern Wooden Sofa Set", 
-                price: 24999, 
-                image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500" 
-            },
-            { 
-                id: 2, 
-                name: "Smart LED TV 43 Inch", 
-                price: 21999, 
-                image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500" 
-            },
-            { 
-                id: 3, 
-                name: "Double Bed with Storage", 
-                price: 18500, 
-                image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500" 
-            },
-            { 
-                id: 4, 
-                name: "Double Door Refrigerator", 
-                price: 26500, 
-                image: "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=500" 
-            },
-            { 
-                id: 5, 
-                name: "Designer Center Table", 
-                price: 4500, 
-                image: "https://images.unsplash.com/photo-1533779283484-8ab4940aa78f?w=500" 
-            },
-            { 
-                id: 6, 
-                name: "Automatic Washing Machine", 
-                price: 16999, 
-                image: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=500" 
-            }
+            { id: 1, category: "AC", brand: "Voltas", name: "Inverter Split AC", specs: "1.5 Ton, 5 Star", price: 36999, mrp: 48999, discount: "24% off", image: "https://images.unsplash.com/photo-1619895862022-09114b41f16f?w=500" },
+            { id: 2, category: "AC", brand: "Daikin", name: "Copper Inverter AC", specs: "1 Ton, 3 Star", price: 32999, mrp: 42999, discount: "23% off", image: "https://images.unsplash.com/photo-1619895862022-09114b41f16f?w=500" },
+            { id: 3, category: "Cooler", brand: "Crompton", name: "Desert Air Cooler", specs: "55 Litre, Honeycomb", price: 6500, mrp: 8999, discount: "27% off", image: "https://images.unsplash.com/photo-1603794049453-33932e633d9c?w=500" },
+            { id: 4, category: "Cooler", brand: "Symphony", name: "Personal Air Cooler", specs: "31 Litre, Powerful Fan", price: 5200, mrp: 7200, discount: "28% off", image: "https://images.unsplash.com/photo-1603794049453-33932e633d9c?w=500" },
+            { id: 5, category: "Electronics", brand: "Samsung", name: "Smart LED TV", specs: "43 Inch Full HD", price: 24999, mrp: 35999, discount: "30% off", image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500" },
+            { id: 6, category: "Electronics", brand: "Whirlpool", name: "Double Door Refrigerator", specs: "260 Ltr, Frost Free", price: 26500, mrp: 34500, discount: "23% off", image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500" },
+            { id: 7, category: "Electronics", brand: "LG", name: "Washing Machine", specs: "7 kg Fully Automatic", price: 19500, mrp: 26999, discount: "28% off", image: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=500" },
+            { id: 8, category: "Electronics", brand: "Usha", name: "Silne Wali Machine", specs: "Zig-Zag Domestic", price: 6800, mrp: 8500, discount: "20% off", image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500" },
+            { id: 9, category: "Electronics", brand: "Bajaj", name: "Mixer Grinder", specs: "750W, 3 Jars", price: 3499, mrp: 5299, discount: "34% off", image: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500" },
+            { id: 10, category: "Electronics", brand: "Prestige", name: "Induction Cooktop", specs: "2000 Watts", price: 2499, mrp: 3999, discount: "37% off", image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500" },
+            { id: 11, category: "Electronics", brand: "Havells", name: "Electric Press (Iron)", specs: "Heavy Weight Dry Iron", price: 1199, mrp: 1699, discount: "29% off", image: "https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?w=500" },
+            { id: 12, category: "Electronics", brand: "Luminous", name: "Inverter & Battery", specs: "900VA + 150Ah", price: 16500, mrp: 21000, discount: "21% off", image: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=500" },
+            { id: 13, category: "Furniture", brand: "Godrej", name: "Steel Almirah", specs: "Double Door Locker", price: 14500, mrp: 19500, discount: "26% off", image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=500" },
+            { id: 14, category: "Furniture", brand: "Godrej", name: "3 Seater Sofa Set", specs: "Comfortable Cushion", price: 16999, mrp: 23999, discount: "29% off", image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500" },
+            { id: 15, category: "Furniture", brand: "Sleepwell", name: "Wooden Double Bed", specs: "Queen Size with Box", price: 18500, mrp: 25000, discount: "26% off", image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500" },
+            { id: 16, category: "Furniture", brand: "Local Craft", name: "Dressing Table", specs: "Wooden with Mirror", price: 5500, mrp: 7999, discount: "31% off", image: "https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=500" },
+            { id: 17, category: "Bedding", brand: "Sleepwell", name: "Bed Mattress (Gadda)", specs: "Double Bed, Ortho", price: 6500, mrp: 9500, discount: "31% off", image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=500" },
+            { id: 18, category: "Bedding", brand: "Duroflex", name: "Spring Mattress", specs: "Luxury Double Bed", price: 8999, mrp: 12999, discount: "30% off", image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=500" }
         ];
 
         let cart = [];
+        let currentCategory = 'All';
 
-        function displayProducts() {
-            const productList = document.getElementById("product-list");
-            productList.innerHTML = "";
-            products.forEach(product => {
-                productList.innerHTML += `
+        function displayProducts(items) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = "";
+            if (items.length === 0) {
+                grid.innerHTML = "<p style='grid-column: 1/-1; text-align:center; padding:30px; background:white; border-radius:8px;'>Koi product nahi mila!</p>";
+                return;
+            }
+            items.forEach(product => {
+                grid.innerHTML += `
                     <div class="product-card">
-                        <img src="${product.image}" alt="${product.name}" class="product-img">
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-price">₹${product.price.toLocaleString()}</div>
-                        <div class="btn-group">
-                            <button class="btn add-cart" onclick="addToCart(${product.id})">Add to Cart</button>
-                            <button class="btn buy-now" onclick="buyNow(${product.id})">Buy Now</button>
+                        <div>
+                            <div class="product-img-container">
+                                <img src="${product.image}" alt="${product.name}" class="product-img">
+                            </div>
+                            <span class="discount-badge">${product.discount}</span>
+                            <div class="product-title"><b>${product.brand}</b> ${product.name}</div>
+                            <div class="product-specs">📦 ${product.specs}</div>
+                            <div class="price-box">
+                                <span class="current-price">₹${product.price.toLocaleString('en-IN')}</span>
+                                <span class="mrp-price">₹${product.mrp.toLocaleString('en-IN')}</span>
+                            </div>
                         </div>
+                        <button class="add-btn" onclick="addToCart(${product.id})">Add to Cart</button>
                     </div>
                 `;
             });
+        }
+
+        function filterCategory(category, element) {
+            currentCategory = category;
+            document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            applyFilters();
+        }
+
+        function filterProducts() {
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('searchBar').value.toLowerCase();
+            let filtered = products.filter(p => {
+                const matchesCategory = (currentCategory === 'All' || p.category === currentCategory);
+                const matchesSearch = p.name.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query) || p.specs.toLowerCase().includes(query);
+                return matchesCategory && matchesSearch;
+            });
+            displayProducts(filtered);
         }
 
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             cart.push(product);
             updateCartUI();
-            alert(`${product.name} cart mein add ho gaya hai!`);
-        }
-
-        function buyNow(productId) {
-            const product = products.find(p => p.id === productId);
-            cart = [product];
-            updateCartUI();
-            toggleCart();
+            alert(product.brand + " " + product.name + " cart mein add ho gaya!");
         }
 
         function updateCartUI() {
-            document.getElementById("cart-count").innerText = cart.length;
-            const cartItemsList = document.getElementById("cartItemsList");
+            document.getElementById('cartCount').innerText = cart.length;
+            const list = document.getElementById('cartItemsList');
+            const totalEl = document.getElementById('cartTotal');
             
             if (cart.length === 0) {
-                cartItemsList.innerHTML = `<p style="text-align: center; color: #64748b;">Your cart is empty.</p>`;
-                document.getElementById("cartTotal").innerText = "Total: ₹0";
+                list.innerHTML = "<p>Cart is empty</p>";
+                totalEl.innerText = "0";
                 return;
             }
 
-            cartItemsList.innerHTML = "";
+            list.innerHTML = "";
             let total = 0;
-            cart.forEach((item) => {
+            cart.forEach((item, index) => {
                 total += item.price;
-                cartItemsList.innerHTML += `
+                list.innerHTML += `
                     <div class="cart-item">
-                        <span>${item.name}</span>
-                        <span><b>₹${item.price.toLocaleString()}</b></span>
+                        <div>
+                            <b>${item.brand} ${item.name}</b><br>
+                            <small>₹${item.price.toLocaleString('en-IN')}</small>
+                        </div>
+                        <button onclick="removeFromCart(${index})" style="background:#cc0c39; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">X</button>
                     </div>
                 `;
             });
-            document.getElementById("cartTotal").innerText = `Total: ₹${total.toLocaleString()}`;
+            totalEl.innerText = total.toLocaleString('en-IN');
         }
 
-        function toggleCart() {
-            const modal = document.getElementById("cartModal");
-            modal.style.display = modal.style.display === "flex" ? "none" : "flex";
-        }
-
-        function checkoutOnWhatsApp() {
-            if (cart.length === 0) {
-                alert("Cart khali hai!");
-                return;
-            }
-
-            let message = "Hello Radhe Furnitures & Electronics, Main yeh order karna chahta hoon:\n\n";
-            let total = 0;
-            cart.forEach((item, index) => {
-                message += `${index + 1}. ${item.name} - ₹${item.price.toLocaleString()}\n`;
-                total += item.price;
-            });
-            message += `\nTotal Amount: ₹${total.toLocaleString()}\n\nPlease confirm delivery details.`;
-
-            // Yahan apna WhatsApp number daal dena (jaise 919876543210)
-            let whatsappNumber = "919876543210"; 
-            let url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-            
-            window.open(url, '_blank');
-        }
-
-        displayProducts();
-    </script>
-</body>
-</html>
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+  
