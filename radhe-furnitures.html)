@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radhe Furnitures & Electronics - Raya, Mathura</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        /* Header Styling */
+        header {
+            background: linear-gradient(135deg, #004aad, #0077b6);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo-section h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .logo-section p {
+            font-size: 13px;
+            color: #e0f2fe;
+            margin-top: 2px;
+        }
+        .cart-btn {
+            background-color: #ff9f00;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        .cart-btn:hover {
+            background-color: #fb8c00;
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .banner {
+            background: #e0f2fe;
+            border-left: 5px solid #004aad;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            font-size: 16px;
+            color: #0369a1;
+        }
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #004aad;
+            font-weight: 700;
+            border-bottom: 2px solid #004aad;
+            padding-bottom: 8px;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            background-color: #f1f5f9;
+        }
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+        .product-price {
+            color: #b12704;
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            flex: 1;
+            padding: 10px 0;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .add-cart {
+            background-color: #fef3c7;
+            color: #b45309;
+            border: 1px solid #fde68a;
+        }
+        .add-cart:hover {
+            background-color: #fde68a;
+        }
+        .buy-now {
+            background-color: #ff9f00;
+            color: white;
+        }
+        .buy-now:hover {
+            background-color: #f58e00;
+        }
+
+        /* Cart Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 12px;
+            padding: 25px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+        .modal-header h3 {
+            color: #004aad;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #64748b;
+        }
+        .cart-items-list {
+            margin-bottom: 20px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 15px;
+        }
+        .cart-total {
+            font-size: 19px;
+            font-weight: bold;
+            text-align: right;
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+        .checkout-btn {
+            width: 100%;
+            background-color: #25d366;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        .checkout-btn:hover {
+            background-color: #20ba5a;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e293b;
+            color: #94a3b8;
+            margin-top: 50px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-section">
+            <h1>Radhe Furnitures & Electronics</h1>
+            <p>Best Quality Furniture & Home Appliances | Raya, Mathura</p>
+        </div>
+        <button class="cart-btn" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</button>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <div class="banner">
+            📢 <b>Welcome!</b> Browse our latest collection of furniture and electronics. Click "Buy Now" or order directly via WhatsApp!
+        </div>
+
+        <h2 class="section-title">Featured Products</h2>
+        <div class="products-grid" id="product-list">
+            <!-- Products will load dynamically -->
+        </div>
+    </div>
+
+    <!-- Cart Modal / Order Summary -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Your Shopping Cart</h3>
+                <button class="close-btn" onclick="toggleCart()">&times;</button>
+            </div>
+            <div class="cart-items-list" id="cartItemsList">
+                <p style="text-align: center; color: #64748b;">Your cart is empty.</p>
+            </div>
+            <div class="cart-total" id="cartTotal">Total: ₹0</div>
+            <button class="checkout-btn" onclick="checkoutOnWhatsApp()">
+                <span>Order via WhatsApp 💬</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Radhe Furnitures & Electronics, Raya, Mathura. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Yahan aap apne products ki photo ka link (URL), naam aur price change kar sakte hain
+        const products = [
+            { 
+                id: 1, 
+                name: "Modern Wooden Sofa Set", 
+                price: 24999, 
+                image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500" 
+            },
+            { 
+                id: 2, 
+                name: "Smart LED TV 43 Inch", 
+                price: 21999, 
+                image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500" 
+            },
+            { 
+                id: 3, 
+                name: "Double Bed with Storage", 
+                price: 18500, 
+                image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500" 
+            },
+            { 
+                id: 4, 
+                name: "Double Door Refrigerator", 
+                price: 26500, 
+                image: "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=500" 
+            },
+            { 
+                id: 5, 
+                name: "Designer Center Table", 
+                price: 4500, 
+                image: "https://images.unsplash.com/photo-1533779283484-8ab4940aa78f?w=500" 
+            },
+            { 
+                id: 6, 
+                name: "Automatic Washing Machine", 
+                price: 16999, 
+                image: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=500" 
+            }
+        ];
+
+        let cart = [];
+
+        function displayProducts() {
+            const productList = document.getElementById("product-list");
+            productList.innerHTML = "";
+            products.forEach(product => {
+                productList.innerHTML += `
+                    <div class="product-card">
+                        <img src="${product.image}" alt="${product.name}" class="product-img">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">₹${product.price.toLocaleString()}</div>
+                        <div class="btn-group">
+                            <button class="btn add-cart" onclick="addToCart(${product.id})">Add to Cart</button>
+                            <button class="btn buy-now" onclick="buyNow(${product.id})">Buy Now</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            cart.push(product);
+            updateCartUI();
+            alert(`${product.name} cart mein add ho gaya hai!`);
+        }
+
+        function buyNow(productId) {
+            const product = products.find(p => p.id === productId);
+            cart = [product];
+            updateCartUI();
+            toggleCart();
+        }
+
+        function updateCartUI() {
+            document.getElementById("cart-count").innerText = cart.length;
+            const cartItemsList = document.getElementById("cartItemsList");
+            
+            if (cart.length === 0) {
+                cartItemsList.innerHTML = `<p style="text-align: center; color: #64748b;">Your cart is empty.</p>`;
+                document.getElementById("cartTotal").innerText = "Total: ₹0";
+                return;
+            }
+
+            cartItemsList.innerHTML = "";
+            let total = 0;
+            cart.forEach((item) => {
+                total += item.price;
+                cartItemsList.innerHTML += `
+                    <div class="cart-item">
+                        <span>${item.name}</span>
+                        <span><b>₹${item.price.toLocaleString()}</b></span>
+                    </div>
+                `;
+            });
+            document.getElementById("cartTotal").innerText = `Total: ₹${total.toLocaleString()}`;
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById("cartModal");
+            modal.style.display = modal.style.display === "flex" ? "none" : "flex";
+        }
+
+        function checkoutOnWhatsApp() {
+            if (cart.length === 0) {
+                alert("Cart khali hai!");
+                return;
+            }
+
+            let message = "Hello Radhe Furnitures & Electronics, Main yeh order karna chahta hoon:\n\n";
+            let total = 0;
+            cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name} - ₹${item.price.toLocaleString()}\n`;
+                total += item.price;
+            });
+            message += `\nTotal Amount: ₹${total.toLocaleString()}\n\nPlease confirm delivery details.`;
+
+            // Yahan apna WhatsApp number daal dena (jaise 919876543210)
+            let whatsappNumber = "919876543210"; 
+            let url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+            
+            window.open(url, '_blank');
+        }
+
+        displayProducts();
+    </script>
+</body>
+</html>
