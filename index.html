@@ -16,7 +16,6 @@
             color: #0f1111;
             padding-bottom: 70px;
         }
-        /* Top Header like Amazon */
         header {
             background: #131921;
             color: white;
@@ -37,11 +36,12 @@
             gap: 8px;
         }
         .logo-img {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             object-fit: contain;
-            border-radius: 4px;
+            border-radius: 6px;
             background: #000;
+            border: 1px solid #ff9900;
         }
         .logo-text {
             font-size: 16px;
@@ -64,8 +64,6 @@
             color: #111;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        /* Category Horizontal Scroll Icons */
         .category-bar {
             background: #fff;
             display: flex;
@@ -106,14 +104,11 @@
             border-color: #007185;
             color: #007185;
         }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 10px;
         }
-
-        /* Banner Section */
         .promo-banner {
             background: linear-gradient(135deg, #232f3e, #37475a);
             color: white;
@@ -131,19 +126,12 @@
             font-size: 13px;
             opacity: 0.9;
         }
-
-        /* Section Title */
         .section-title {
             font-size: 18px;
             font-weight: bold;
             margin: 15px 5px 10px 5px;
             color: #0f1111;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
-
-        /* Product Grid (App Style) */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -163,6 +151,7 @@
             justify-content: space-between;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             position: relative;
+            cursor: pointer;
         }
         .product-img-container {
             width: 100%;
@@ -219,24 +208,34 @@
             text-decoration: line-through;
             margin-left: 5px;
         }
+        .card-buttons {
+            display: flex;
+            gap: 6px;
+        }
         .add-btn {
             background-color: #ffd814;
             color: #0f1111;
             border: 1px solid #fcd200;
-            padding: 8px;
-            width: 100%;
-            border-radius: 20px;
-            font-size: 13px;
+            padding: 6px 4px;
+            width: 50%;
+            border-radius: 15px;
+            font-size: 11px;
             cursor: pointer;
             font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: background 0.2s;
+            text-align: center;
         }
-        .add-btn:hover {
-            background-color: #f7ca00;
+        .buy-btn {
+            background-color: #ffa41c;
+            color: #0f1111;
+            border: 1px solid #ff8f00;
+            padding: 6px 4px;
+            width: 50%;
+            border-radius: 15px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 600;
+            text-align: center;
         }
-
-        /* Floating Cart Button */
         .cart-floating-btn {
             position: fixed;
             bottom: 15px;
@@ -255,8 +254,6 @@
             z-index: 1000;
             border: 1px solid #ff8f00;
         }
-
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -314,21 +311,19 @@
 </head>
 <body>
 
-    <!-- App Header with Logo -->
     <header>
         <div class="header-top">
             <div class="logo-container">
-                <img src="1000127928.jpg" alt="Logo" class="logo-img">
+                <img src="Screenshot_20260927_165634.jpg" alt="Logo" class="logo-img">[span_1](start_span)[span_1](end_span)
                 <span class="logo-text">Radhe Store</span>
             </div>
             <div style="font-size: 12px; color: #ccc;">📍 Delivery: Free Home</div>
         </div>
         <div class="search-container">
-            <input type="text" id="searchBar" class="search-box" placeholder="🔍 Search AC, Fridge, Cooler, Bed..." onkeyup="filterProducts()">
+            <input type="text" id="searchBar" class="search-box" placeholder="🔍 Search AC, Fridge, Cooler, Washing Machine..." onkeyup="filterProducts()">
         </div>
     </header>
 
-    <!-- Horizontal Category Icons Bar -->
     <div class="category-bar">
         <div class="cat-item active" onclick="filterCategory('All', this)">
             <div class="cat-icon-box">🏠</div>
@@ -357,7 +352,6 @@
     </div>
 
     <div class="container">
-        <!-- Banner -->
         <div class="promo-banner">
             <h2>🎉 Mega Festive & Summer Sale</h2>
             <p>Get up to 40% OFF on Electronics & Furniture. Order Direct on WhatsApp!</p>
@@ -367,15 +361,33 @@
             <span>Shop popular deals</span>
         </div>
 
-        <!-- Product Grid -->
-        <div class="product-grid" id="productGrid">
-            <!-- Dynamic Products -->
-        </div>
+        <div class="product-grid" id="productGrid"></div>
     </div>
 
-    <!-- Floating Cart Button -->
     <div class="cart-floating-btn" onclick="toggleCart()">
         🛒 Cart (<span id="cartCount">0</span>)
+    </div>
+
+    <!-- Product Details Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalProductName">Product Details</h3>
+                <span class="close-btn" onclick="closeProductModal()">&times;</span>
+            </div>
+            <div style="text-align: center; margin-bottom: 12px;">
+                <img id="modalProductImg" src="" alt="" style="max-height: 180px; max-width: 100%; object-fit: contain;">
+            </div>
+            <p id="modalProductBrand" style="font-weight:bold; color:#007185;"></p>
+            <p id="modalProductSpecs" style="font-size:13px; color:#565959; margin: 6px 0;"></p>
+            <p id="modalProductDesc" style="font-size:13px; margin-bottom: 10px;"></p>
+            <h2 id="modalProductPrice" style="color: #B12704; margin-bottom: 15px;"></h2>
+            
+            <div style="display: flex; gap: 10px;">
+                <button class="add-btn" style="width: 50%; padding: 10px; border-radius: 6px; font-size: 14px;" onclick="addCurrentToCart()">Add to Cart 🛒</button>
+                <button class="buy-btn" style="width: 50%; padding: 10px; border-radius: 6px; font-size: 14px;" onclick="buyCurrentNow()">Buy Now ⚡</button>
+            </div>
+        </div>
     </div>
 
     <!-- Cart Modal -->
@@ -397,28 +409,32 @@
         const whatsappNumber = "919058095616";
 
         const products = [
-            { id: 1, category: "AC", brand: "Voltas", name: "Inverter Split AC", specs: "1.5 Ton, 5 Star", price: 36999, mrp: 48999, discount: "24% off", image: "https://images.unsplash.com/photo-1619895862022-09114b41f16f?w=500" },
-            { id: 2, category: "AC", brand: "Daikin", name: "Copper Inverter AC", specs: "1 Ton, 3 Star", price: 32999, mrp: 42999, discount: "23% off", image: "https://images.unsplash.com/photo-1619895862022-09114b41f16f?w=500" },
-            { id: 3, category: "Cooler", brand: "Crompton", name: "Desert Air Cooler", specs: "55 Litre, Honeycomb", price: 6500, mrp: 8999, discount: "27% off", image: "https://images.unsplash.com/photo-1603794049453-33932e633d9c?w=500" },
-            { id: 4, category: "Cooler", brand: "Symphony", name: "Personal Air Cooler", specs: "31 Litre, Powerful Fan", price: 5200, mrp: 7200, discount: "28% off", image: "https://images.unsplash.com/photo-1603794049453-33932e633d9c?w=500" },
-            { id: 5, category: "Electronics", brand: "Samsung", name: "Smart LED TV", specs: "43 Inch Full HD", price: 24999, mrp: 35999, discount: "30% off", image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500" },
-            { id: 6, category: "Electronics", brand: "Whirlpool", name: "Double Door Refrigerator", specs: "260 Ltr, Frost Free", price: 26500, mrp: 34500, discount: "23% off", image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500" },
-            { id: 7, category: "Electronics", brand: "LG", name: "Washing Machine", specs: "7 kg Fully Automatic", price: 19500, mrp: 26999, discount: "28% off", image: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=500" },
-            { id: 8, category: "Electronics", brand: "Usha", name: "Silne Wali Machine", specs: "Zig-Zag Domestic", price: 6800, mrp: 8500, discount: "20% off", image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=500" },
-            { id: 9, category: "Electronics", brand: "Bajaj", name: "Mixer Grinder", specs: "750W, 3 Jars", price: 3499, mrp: 5299, discount: "34% off", image: "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=500" },
-            { id: 10, category: "Electronics", brand: "Prestige", name: "Induction Cooktop", specs: "2000 Watts", price: 2499, mrp: 3999, discount: "37% off", image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500" },
-            { id: 11, category: "Electronics", brand: "Havells", name: "Electric Press (Iron)", specs: "Heavy Weight Dry Iron", price: 1199, mrp: 1699, discount: "29% off", image: "https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?w=500" },
-            { id: 12, category: "Electronics", brand: "Luminous", name: "Inverter & Battery", specs: "900VA + 150Ah", price: 16500, mrp: 21000, discount: "21% off", image: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=500" },
-            { id: 13, category: "Furniture", brand: "Godrej", name: "Steel Almirah", specs: "Double Door Locker", price: 14500, mrp: 19500, discount: "26% off", image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=500" },
-            { id: 14, category: "Furniture", brand: "Godrej", name: "3 Seater Sofa Set", specs: "Comfortable Cushion", price: 16999, mrp: 23999, discount: "29% off", image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500" },
-            { id: 15, category: "Furniture", brand: "Sleepwell", name: "Wooden Double Bed", specs: "Queen Size with Box", price: 18500, mrp: 25000, discount: "26% off", image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500" },
-            { id: 16, category: "Furniture", brand: "Local Craft", name: "Dressing Table", specs: "Wooden with Mirror", price: 5500, mrp: 7999, discount: "31% off", image: "https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=500" },
-            { id: 17, category: "Bedding", brand: "Sleepwell", name: "Bed Mattress (Gadda)", specs: "Double Bed, Ortho", price: 6500, mrp: 9500, discount: "31% off", image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=500" },
-            { id: 18, category: "Bedding", brand: "Duroflex", name: "Spring Mattress", specs: "Luxury Double Bed", price: 8999, mrp: 12999, discount: "30% off", image: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=500" }
+            { 
+                id: 1, 
+                category: "Electronics", 
+                brand: "Samsung", 
+                name: "Semi Automatic Washing Machine", 
+                specs: "7.5 Kg, Hexa Storm Pulsator", 
+                color: "Dual Red White",
+                material: "Plastic",
+                warranty: "5 Years on Washing Motor",
+                price: 12500, 
+                mrp: 15999, 
+                discount: "21% off", 
+                image: "IMG_20260928_211221.jpg" 
+            },
+            { id: 2, category: "AC", brand: "Voltas", name: "Inverter Split AC", specs: "1.5 Ton, 5 Star", color: "White", material: "Standard", warranty: "1 Year Comprehensive", price: 36999, mrp: 48999, discount: "24% off", image: "https://images.unsplash.com/photo-1619895862022-09114b41f16f?w=500" },
+            { id: 3, category: "AC", brand: "Daikin", name: "Copper Inverter AC", specs: "1 Ton, 3 Star", color: "White", material: "Standard", warranty: "1 Year Comprehensive", price: 32999, mrp: 42999, discount: "23% off", image: "https://images.unsplash.com/photo-1619895862022-09114b41f16f?w=500" },
+            { id: 4, category: "Cooler", brand: "Crompton", name: "Desert Air Cooler", specs: "55 Litre, Honeycomb", color: "Grey/White", material: "Plastic", warranty: "1 Year", price: 6500, mrp: 8999, discount: "27% off", image: "https://images.unsplash.com/photo-1603794049453-33932e633d9c?w=500" },
+            { id: 5, category: "Cooler", brand: "Symphony", name: "Personal Air Cooler", specs: "31 Litre, Powerful Fan", color: "White", material: "Plastic", warranty: "1 Year", price: 5200, mrp: 7200, discount: "28% off", image: "https://images.unsplash.com/photo-1603794049453-33932e633d9c?w=500" },
+            { id: 6, category: "Electronics", brand: "Samsung", name: "Smart LED TV", specs: "43 Inch Full HD", color: "Black", material: "Plastic", warranty: "1 Year", price: 24999, mrp: 35999, discount: "30% off", image: "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500" },
+            { id: 7, category: "Electronics", brand: "Whirlpool", name: "Double Door Refrigerator", specs: "260 Ltr, Frost Free", color: "Steel", material: "Metal", warranty: "1 Year", price: 26500, mrp: 34500, discount: "23% off", image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500" },
+            { id: 8, category: "Electronics", brand: "Godrej", name: "Steel Almirah", specs: "Double Door Locker", color: "Brown", material: "Steel", warranty: "1 Year", price: 14500, mrp: 19500, discount: "26% off", image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=500" }
         ];
 
         let cart = [];
         let currentCategory = 'All';
+        let selectedProductForModal = null;
 
         function displayProducts(items) {
             const grid = document.getElementById('productGrid');
@@ -430,7 +446,7 @@
             items.forEach(product => {
                 grid.innerHTML += `
                     <div class="product-card">
-                        <div>
+                        <div onclick="openProductModal(${product.id})">
                             <div class="product-img-container">
                                 <img src="${product.image}" alt="${product.name}" class="product-img">
                             </div>
@@ -442,10 +458,47 @@
                                 <span class="mrp-price">₹${product.mrp.toLocaleString('en-IN')}</span>
                             </div>
                         </div>
-                        <button class="add-btn" onclick="addToCart(${product.id})">Add to Cart</button>
+                        <div class="card-buttons">
+                            <button class="add-btn" onclick="addToCart(${product.id}); event.stopPropagation();">Add Cart</button>
+                            <button class="buy-btn" onclick="buyNow(${product.id}); event.stopPropagation();">Buy Now</button>
+                        </div>
                     </div>
                 `;
             });
+        }
+
+        function openProductModal(productId) {
+            selectedProductForModal = products.find(p => p.id === productId);
+            document.getElementById('modalProductName').innerText = selectedProductForModal.brand + " " + selectedProductForModal.name;
+            document.getElementById('modalProductImg').src = selectedProductForModal.image;
+            document.getElementById('modalProductBrand').innerText = "Brand: " + selectedProductForModal.brand;
+            document.getElementById('modalProductSpecs').innerText = "Specs: " + selectedProductForModal.specs;
+            document.getElementById('modalProductDesc').innerHTML = `🎨 <b>Color:</b> ${selectedProductForModal.color}<br>🧱 <b>Material:</b> ${selectedProductForModal.material}<br>🛡️ <b>Warranty:</b> ${selectedProductForModal.warranty}`;
+            document.getElementById('modalProductPrice').innerText = "₹" + selectedProductForModal.price.toLocaleString('en-IN');
+            
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        function addCurrentToCart() {
+            if (selectedProductForModal) {
+                cart.push(selectedProductForModal);
+                updateCartUI();
+                alert(selectedProductForModal.brand + " " + selectedProductForModal.name + " cart mein add ho gaya!");
+                closeProductModal();
+            }
+        }
+
+        function buyCurrentNow() {
+            if (selectedProductForModal) {
+                let message = `Namaste Radhe Store! Main yeh product order karna chahta hoon:%0A%0A*${selectedProductForModal.brand} ${selectedProductForModal.name}* (${selectedProductForModal.specs})%0APrice: ₹${selectedProductForModal.price.toLocaleString('en-IN')}%0A%0AKripya order confirm karein.`;
+                const url = `https://wa.me/${whatsappNumber}?text=${message}`;
+                window.open(url, '_blank');
+                closeProductModal();
+            }
         }
 
         function filterCategory(category, element) {
@@ -462,49 +515,4 @@
         function applyFilters() {
             const query = document.getElementById('searchBar').value.toLowerCase();
             let filtered = products.filter(p => {
-                const matchesCategory = (currentCategory === 'All' || p.category === currentCategory);
-                const matchesSearch = p.name.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query) || p.specs.toLowerCase().includes(query);
-                return matchesCategory && matchesSearch;
-            });
-            displayProducts(filtered);
-        }
-
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            cart.push(product);
-            updateCartUI();
-            alert(product.brand + " " + product.name + " cart mein add ho gaya!");
-        }
-
-        function updateCartUI() {
-            document.getElementById('cartCount').innerText = cart.length;
-            const list = document.getElementById('cartItemsList');
-            const totalEl = document.getElementById('cartTotal');
-            
-            if (cart.length === 0) {
-                list.innerHTML = "<p>Cart is empty</p>";
-                totalEl.innerText = "0";
-                return;
-            }
-
-            list.innerHTML = "";
-            let total = 0;
-            cart.forEach((item, index) => {
-                total += item.price;
-                list.innerHTML += `
-                    <div class="cart-item">
-                        <div>
-                            <b>${item.brand} ${item.name}</b><br>
-                            <small>₹${item.price.toLocaleString('en-IN')}</small>
-                        </div>
-                        <button onclick="removeFromCart(${index})" style="background:#cc0c39; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;">X</button>
-                    </div>
-                `;
-            });
-            totalEl.innerText = total.toLocaleString('en-IN');
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-  
+                const matchesCategory = (cur
