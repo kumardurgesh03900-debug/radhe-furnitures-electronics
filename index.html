@@ -314,7 +314,7 @@
     <header>
         <div class="header-top">
             <div class="logo-container">
-                <img src="Screenshot_20260927_165634.jpg" alt="Logo" class="logo-img">[span_1](start_span)[span_1](end_span)
+                <img src="Screenshot_20260927_165634.jpg" alt="Logo" class="logo-img">
                 <span class="logo-text">Radhe Store</span>
             </div>
             <div style="font-size: 12px; color: #ccc;">📍 Delivery: Free Home</div>
@@ -445,8 +445,8 @@
             }
             items.forEach(product => {
                 grid.innerHTML += `
-                    <div class="product-card">
-                        <div onclick="openProductModal(${product.id})">
+                    <div class="product-card" onclick="openProductModal(${product.id})">
+                        <div>
                             <div class="product-img-container">
                                 <img src="${product.image}" alt="${product.name}" class="product-img">
                             </div>
@@ -515,4 +515,4 @@
         function applyFilters() {
             const query = document.getElementById('searchBar').value.toLowerCase();
             let filtered = products.filter(p => {
-                const matchesCategory = (cur
+                const matchesCategory = (currentCategory === 'All' || p.category =
